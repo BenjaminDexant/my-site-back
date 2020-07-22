@@ -17,6 +17,13 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
