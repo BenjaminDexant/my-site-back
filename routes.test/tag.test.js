@@ -1,0 +1,1 @@
+const tag = require('../routes/tag');
