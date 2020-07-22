@@ -1,24 +1,13 @@
-require("dotenv").config();
 const mysql = require("mysql");
 
-const config =
-  process.env.NODE_ENV === "test"
-    ? {
-        host: process.env.DB_HOST_TEST || "localhost",
-        port: process.env.DB_PORT_TEST || "3306",
-        user: process.env.DB_USER_TEST || "root",
-        password: process.env.DB_PASS_TEST || "root",
-        database: process.env.DB_NAME_TEST || "my-site",
-        connectionLimit: 10,
-      }
-    : {
-        host: process.env.DB_HOST || "localhost",
-        port: process.env.DB_PORT || "3305",
-        user: process.env.DB_USER || "root",
-        password: process.env.DB_PASS || "root",
-        database: process.env.DB_NAME || "my-site",
-        connectionLimit: 10,
-      };
+const config = {
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASS || "root",
+  database: process.env.DB_NAME || "my-site",
+  connectionLimit: 10,
+};
 
 const pool = mysql.createPool(config);
 
