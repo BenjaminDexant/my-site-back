@@ -1,4 +1,5 @@
 const express = require("express");
+
 require("dotenv").config();
 
 const app = express();
@@ -12,8 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/admin", admin);
-app.use("/article", article);
-app.use("/tag", tag);
+app.use("/articles", article);
+app.use("/tags", tag);
 
 const server = app.listen(PORT, (err) => {
   if (err) {

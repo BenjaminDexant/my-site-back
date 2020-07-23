@@ -1,13 +1,12 @@
 const express = require("express");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const connection = require("../db");
 
 router.post("/", (req, res) => {
   const { body } = req;
-  const { }
-    try {
+  try {
     const query = "INSERT INTO Article SET ?";
     connection.query(query, body, (error, results) => {
       if (error) {
@@ -18,8 +17,8 @@ router.post("/", (req, res) => {
         });
       } else {
         connection.query(
-          "SELECT * FROM Article WHERE id_=? AND id_admin=?",
-          [results.insertId, results.id_admin],
+          "SELECT * FROM Article WHERE id_article=?",
+          [results.insertId],
           (err, article) => {
             if (err) {
               res.status(500).json({
@@ -111,32 +110,32 @@ router.put("/:id_article", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-    connection.query("SELECT * FROM Article", (error, results) => {
-      res.status(200).json(results);
-    });
+  connection.query("SELECT * FROM Article", (error, results) => {
+    res.status(200).json(results);
   });
-  
+});
 
-router.get('/:id_article', (req, res) => {
-    const { id_article: idArticle } = req.params;
-    const query = `SELECT * FROM Article WHERE id_article=?`;
-    try {
-      connection.query(query, idArticle, (err, article) => {
-        if (err) {
-          res.status(500).json({
-            status: 'error',
-            errorMessage: 'Our server encountered an error performing the request',
-          });
-        } else {
-          res.status(200).json(article);
-        }
-      });
-    } catch (err) {
-      res.status(500).json({
-        status: 'error',
-        errorMessage: 'Our server encountered an error',
-      });
-    }
-  });
+router.get("/:id_article", (req, res) => {
+  const { id_article: idArticle } = req.params;
+  const query = `SELECT * FROM Article WHERE id_article=?`;
+  try {
+    connection.query(query, idArticle, (err, article) => {
+      if (err) {
+        res.status(500).json({
+          status: "error",
+          errorMessage:
+            "Our server encountered an error performing the request",
+        });
+      } else {
+        res.status(200).json(article);
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      errorMessage: "Our server encountered an error",
+    });
+  }
+});
 
 module.exports = router;
