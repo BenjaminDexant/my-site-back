@@ -6,9 +6,17 @@ const connection = require("../db");
 
 router.post("/", (req, res) => {
   const { body } = req;
+  let date;
+  date = new Date();
+  date = `${date.getUTCFullYear()}-${
+    (`00${date.getUTCMonth() + 1}`).slice(-2)}-${
+    (`00${date.getUTCDate()}`).slice(-2)} ${
+    (`00${date.getHours()}`).slice(-2)}:${
+    (`00${date.getUTCMinutes()}`).slice(-2)}:${
+    (`00${date.getUTCSeconds()}`).slice(-2)}`;
   try {
-    const query = "INSERT INTO Article SET ?";
-    connection.query(query, body, (error, results) => {
+    const query = "INSERT INTO Article SET ?, date=?";
+    connection.query(query, [body, date], (error, results) => {
       if (error) {
         res.status(500).json({
           status: error,

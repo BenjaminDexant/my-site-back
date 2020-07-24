@@ -1,14 +1,9 @@
-const express = require("express");
-
-const router = express.Router({ mergeParams: true });
-
-const util = require("util");
-const bcrypt = require("bcrypt");
-
-const connection = require("../db");
+const router = require('express').Router();
+const bcrypt = require('bcrypt');
+const util = require('util');
+const connection = require('../db');
 
 const queryAsync = util.promisify(connection.query).bind(connection);
-
 router.post('/', async (req, res) => {
   const { name, password } = req.body;
   try {
@@ -31,6 +26,7 @@ router.post('/', async (req, res) => {
       errorMessage: 'Invalid data',
     });
   } catch (err) {
+      console.log(err);
     return res.status(500).json({
       status: 'err',
       errorMessage: 'Something went wrong',
