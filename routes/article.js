@@ -18,6 +18,7 @@ router.post("/", (req, res) => {
     const query = "INSERT INTO Article SET ?, date=?";
     connection.query(query, [body, date], (error, results) => {
       if (error) {
+        console.log(error);
         res.status(500).json({
           status: error,
           errorMessage:
